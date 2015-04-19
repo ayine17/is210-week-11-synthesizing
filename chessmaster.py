@@ -15,7 +15,7 @@ class ChessPiece(object):
 
     prefix = ''
 
-    def __init__(self, position):
+    def __init__(ChessPiece, position):
         """ chessPiece construct
         args:
             position (string):
@@ -36,11 +36,11 @@ class ChessPiece(object):
                 >>> piece.position
                 'a1'
         """
+        
+        if ChessPiece.is_legal_move(position):
+            ChessPiece.position = position
 
-        if self.is_legal_move(position):
-            self.position = position
-
-            self.moves = []
+            ChessPiece.moves = []
         else:
             excep = '`{}` is not a legal start position'
             raise ValueError(excep.format(position))
@@ -122,11 +122,11 @@ class ChessPiece(object):
         if self.is_legal_move(position):
             oldposition = self.prefix + self.position
             newposition = self.prefix + position
-            
-            self.moves.append((oldposition, newposition, time.time()))
             moves = ((oldposition, newposition, time.time()))
-            self.position = newposition
-            position = self.prefix + position
+            self.moves.append(moves)
+            
+           # self.position = newposition
+           # position = self.prefix + position
             return moves
         else:
             return False
@@ -140,17 +140,18 @@ class Rook(ChessPiece):
     def __init__(self,position):
         """ rock constructor
         args:
-            the algebraic notation of the new position to be moved.
+        the algebraic notation of the new position to be moved.
         """
         
         self.position = position
         
-        ChessPiece.__init__(self,position)
-        self.positon = position
+        
+
     
     def is_legal_move(self, position):
+        self .positon = position
         if ChessPiece.is_legal_move(self, position):
-            
+           
             if self.position[0] == position[0] or self.position[1] == position[1]:
                 print self.position, position
                 return True  
